@@ -1,5 +1,6 @@
 ---
-
+import Banner from '../components/Banner.astro';
+import Header from '../components/Header.astro';
 ---
 
 <html lang="en">
@@ -16,11 +17,59 @@
 	</head>
 	<body>
 		<!-- <h1>Astro</h1> -->
-		<img src="/images/logo.webp" alt="">
+		<Header />
+
+		<div class="content">
+			<Banner />
+		</div>
+		
+		<div class="image">
+			<img src="/images/logo.png" alt="">
+		</div>
 		<h2>Muy pronto...</h2>
 
 		<style lang="scss">
 			@import '../styles/global.scss';
+
+			body {
+				// width: 100%;
+				// margin: 0 auto !important;
+			}
+
+			.content {
+				width: 100%;
+				max-width: 1200px;
+				margin: 0 auto;
+
+			}
+
+			.image{ 
+				width: 200px;
+				position: relative;
+
+				img {
+					position: absolute;
+					max-width: 200px;
+					margin-top: 100px;
+					height: auto;
+					animation: pulse 2s linear infinite;
+					transform: translateX(10px);
+				}
+				@keyframes pulse {
+					0% {
+						transform: scale(1);
+					}
+					50% {
+						transform: scale(1.1);
+					}
+					100% {
+						transform: scale(1);
+					}
+				}
+			}
+
+			@media (max-width: 800px) {
+			}
 		</style>
 	</body>
 </html>

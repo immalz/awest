@@ -1,0 +1,165 @@
+---
+---
+
+<div class="slider">
+    <div class="slider__list">
+        <div class="slider__list--item">
+            <img src="public/images/banner/banner1.jpg" alt="Banner 1" />
+        </div>
+        <div class="slider__list--item">
+            <img src="public/images/banner/banner2.png" alt="Banner 2" />
+        </div>
+        <div class="slider__list--item">
+            <img src="public/images/banner/banner1.jpg" alt="Banner 1" />
+        </div>
+        <div class="slider__list--item">
+            <img src="public/images/banner/banner2.png" alt="Banner 2" />
+        </div>
+    </div>
+    <div class="slider__buttons">
+        <button id="prev"> {'<'}</button>
+        <button id="next"> {'>'} </button>
+    </div>
+    <ul class="slider__dots">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <!-- <slot /> -->
+</div>
+
+<script>
+    let slider = document.querySelector('.slider__list') as HTMLElement;
+    let items = Array.from(document.querySelectorAll('.slider__list--item')) as HTMLElement[];
+    let next: any = document.getElementById('next');
+    let prev: any = document.getElementById('prev');
+    let dots: any = document.querySelectorAll('.slider__dots li');
+
+    let lengthItems = items.length - 1;
+    console.log("items", items.length);
+    
+    let active = 0;
+    next.onclick = function(){
+        active = active + 1 <= lengthItems ? active + 1 : 0;
+        reloadSlider();
+    }
+    prev.onclick = function(){
+        active = active - 1 >= 0 ? active - 1 : lengthItems;
+        reloadSlider();
+    }
+    let refreshInterval = setInterval(()=> {next.click()}, 3000);
+    function reloadSlider(){
+        slider.style.left = -items[active].offsetLeft + 'px';
+        let last_active_dot: any = document.querySelector('.slider__dots li.active');
+        last_active_dot.classList.remove('active');
+        dots[active].classList.add('active');
+
+        clearInterval(refreshInterval);
+        refreshInterval = setInterval(()=> {next.click()}, 3000); 
+    }
+
+    dots.forEach((li: any, key: any) => {
+        li.addEventListener('click', ()=>{
+            active = key;
+            reloadSlider();
+        })
+    })
+    window.onresize = function() {
+        reloadSlider();
+    };
+</script>
+
+<style lang="scss">
+    .slider {
+        height: 350px;
+        max-width: 100%;
+        overflow: hidden;
+        margin-top: 20px;
+        // height: 700px;
+        // margin: auto;
+        position: relative;
+        overflow: hidden;
+
+        &__list {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            transition: 1s;
+
+            &--item {
+                img {
+                    width: 1200px;
+                    // max-width: 100vw;
+                    height: 100%;
+                    object-fit: cover;
+
+                }
+            }
+        }
+
+        &__buttons {
+            position: absolute;
+            top: 45%;
+            left: 5%;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+
+            button {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: rgb(255 255 255 / 83%);
+                color: #f5b6cd;
+                border: none;
+                font-family: monospace;
+                font-weight: bold;
+                font-size: 30px;
+                cursor: pointer;
+            }
+        }
+
+        &__dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            color: #fff;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+
+            li{
+                list-style: none;
+                width: 10px;
+                height: 10px;
+                background-color: #fff;
+                margin: 10px;
+                border-radius: 20px;
+                transition: 0.5s;
+            }
+
+            li.active {
+                width: 30px;
+            }
+        }
+
+    }
+
+    @media (max-width: 800px) {
+        .slider {
+            width: 100%;
+            height: 250px;
+
+            img {
+                width: 100dvh;
+            }
+        }
+        
+    }
+</style>
