@@ -6,7 +6,7 @@ import Header from '../components/Header.astro';
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/images/icon.ico" />
+		<link rel="icon" type="image/svg+xml" href="/images/logo.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Awest Manga</title>
@@ -23,9 +23,6 @@ import Header from '../components/Header.astro';
 			<Banner />
 		</div>
 		
-		<div class="image">
-			<img src="/images/logo.png" alt="">
-		</div>
 		<h2>Muy pronto...</h2>
 
 		<style lang="scss">
@@ -43,29 +40,8 @@ import Header from '../components/Header.astro';
 
 			}
 
-			.image{ 
-				width: 200px;
-				position: relative;
-
-				img {
-					position: absolute;
-					max-width: 200px;
-					margin-top: 100px;
-					height: auto;
-					animation: pulse 2s linear infinite;
-					transform: translateX(10px);
-				}
-				@keyframes pulse {
-					0% {
-						transform: scale(1);
-					}
-					50% {
-						transform: scale(1.1);
-					}
-					100% {
-						transform: scale(1);
-					}
-				}
+			img {
+				width: 100px;
 			}
 
 			@media (max-width: 800px) {
