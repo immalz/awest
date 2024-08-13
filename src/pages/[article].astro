@@ -1,0 +1,63 @@
+---
+ import Layout from "../layouts/Layout.astro"
+ import InProgress from "../components/InProgress.astro";
+ import { articles } from "../data/articles";
+
+ const { article } = Astro.params;
+
+ console.log("object", articles);
+
+ const articleData: any = articles.find((a) => a.url === article);
+
+ console.log(articleData);
+
+
+
+ export async function getStaticPaths() {
+    return [
+      { params: { article: 'sorteo-antologia-bocchi-the-rock' } },
+      { params: { article: 'sorteo-overlord' } },
+    ];
+}
+
+---
+
+<Layout>
+    <!-- <article>
+        {article}
+    </article> -->
+
+    <main>
+        <img src={`images/sorteo/${articleData.banner}`} alt="">
+<!-- 
+        <h1> {articleData.title} </h1>
+
+        <h2>Reglas del sorteo</h2>
+        <ul>
+            <li>
+                Dale seguir a la Fanpage.
+            </li>
+            <li>
+                Dale like y compartir la publicacion.
+            </li>
+            <li>
+                comenta una foto de tu coleccion y etiqueta a 2 amigos.
+            </li>
+        </ul> -->
+    </main>
+    
+    <InProgress />
+</Layout>
+
+<style lang="scss">
+    img {
+        width: 100%;
+    }
+</style>
+
+<script define:vars={{articles, articleData}}>
+    console.log("articulos", articleData);
+</script>
+
+
+

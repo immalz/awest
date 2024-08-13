@@ -52,7 +52,8 @@
     let refreshInterval = setInterval(()=> {next.click()}, 3000);
     function reloadSlider(){
         slider.style.left = -items[active].offsetLeft + 'px';
-        let last_active_dot: any = document.querySelector('.slider__dots li.active');
+        let last_active_dot: any = document.querySelector('.slider__dots li.active') as HTMLElement;
+        
         last_active_dot.classList.remove('active');
         dots[active].classList.add('active');
 
